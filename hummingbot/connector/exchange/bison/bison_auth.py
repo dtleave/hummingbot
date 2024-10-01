@@ -16,9 +16,10 @@ def keccak_hash(x):
 
 
 class BisonAuth(AuthBase):
-    def __init__(self, bison_arbitrum_address: str, bison_arbitrum_private_key: str):
-        self.sender_address = bison_arbitrum_address
-        self.private_key = bison_arbitrum_private_key
+    def __init__(self, bison_rpc_host: str, bison_rpc_user: str, bison_rpc_pass: str):
+        self.rpc_host = bison_rpc_host
+        self.rpc_user = bison_rpc_user
+        self.rpc_pass = bison_rpc_pass
 
     async def rest_authenticate(self, request: RESTRequest) -> RESTRequest:
         """

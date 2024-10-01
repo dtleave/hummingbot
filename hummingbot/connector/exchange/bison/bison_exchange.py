@@ -37,14 +37,16 @@ class BisonExchange(ExchangePyBase):
     def __init__(
         self,
         client_config_map: "ClientConfigAdapter",
-        bison_arbitrum_address: str,
-        bison_arbitrum_private_key: str,
+        bison_rpc_host: str,
+        bison_rpc_user: str,
+        bison_rpc_pass: str,
         trading_pairs: Optional[List[str]] = None,
         trading_required: bool = True,
         domain: str = CONSTANTS.DEFAULT_DOMAIN,
     ):
-        self.sender_address = utils.convert_address_to_sender(bison_arbitrum_address)
-        self.private_key = bison_arbitrum_private_key
+        self.rpc_host = bison_rpc_host
+        self.rpc_user = bison_rpc_user
+        self.rpc_pass = bison_rpc_pass
         self._use_spot_leverage = False
         # NOTE: Vertex doesn't submit all balance updates, instead it only updates the product on position change (not cancel)
         self.real_time_balance_update = False
@@ -67,7 +69,7 @@ class BisonExchange(ExchangePyBase):
 
     @property
     def authenticator(self):
-        return BisonAuth(bison_arbitrum_address=self.sender_address, bison_arbitrum_private_key=self.private_key)
+        return BisonAuth(bison_rpc_host=self.rpc_host, bison_rpc_user=self.rpc_user, bison_rpc_pass=self.rpc_pass)
 
     @property
     def name(self) -> str:

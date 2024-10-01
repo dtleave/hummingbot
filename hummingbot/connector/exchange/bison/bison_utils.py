@@ -146,34 +146,33 @@ def is_exchange_information_valid(exchange_info: Dict[str, Any]) -> bool:
 
 class BisonConfigMap(BaseConnectorConfigMap):
     connector: str = Field(default="bison", const=True, client_data=None)
-    bison_arbitrum_private_key: SecretStr = Field(
+    bison_rpc_host: str = Field(
         default=...,
         client_data=ClientFieldData(
-            prompt=lambda cm: "Enter your Bison private key",
-            is_secure=True,
-            is_connect_key=True,
-            prompt_on_new=True,
-        ),
-    )
-    bison_arbitrum_address: str = Field(
-        default=...,
-        client_data=ClientFieldData(
-            prompt=lambda cm: "Enter your Bison wallet address",
+            prompt=lambda cm: "Enter your Bison Wallet rpc host (Ex: localhost:5757)",
             is_secure=False,
             is_connect_key=True,
             prompt_on_new=True,
         ),
     )
-    # NOTE: Vertex allows for spot leverage
-    # vertex_spot_leverage: bool = Field(
-    #     default=False,
-    #     client_data=ClientFieldData(
-    #         prompt=lambda cm: "Enable spot leverage? This auto-borrows assets against your margin to trade with larger size. Set to True to enable borrowing (default: False).",
-    #         is_secure=False,
-    #         is_connect_key=False,
-    #         prompt_on_new=True,
-    #     ),
-    # )
+    bison_rpc_user: str = Field(
+        default=...,
+        client_data=ClientFieldData(
+            prompt=lambda cm: "Enter your Bison Wallet rpc user",
+            is_secure=False,
+            is_connect_key=True,
+            prompt_on_new=True,
+        ),
+    )
+    bison_rpc_pass: SecretStr = Field(
+        default=...,
+        client_data=ClientFieldData(
+            prompt=lambda cm: "Enter your Bison Wallet rpc pass",
+            is_secure=True,
+            is_connect_key=True,
+            prompt_on_new=True,
+        ),
+    )
 
     class Config:
         title = "bison"
@@ -184,34 +183,33 @@ KEYS = BisonConfigMap.construct()
 
 class BisonTestnetConfigMap(BaseConnectorConfigMap):
     connector: str = Field(default="bison_testnet", client_data=None)
-    bison_testnet_arbitrum_private_key: SecretStr = Field(
+    bison_testnet_rpc_host: str = Field(
         default=...,
         client_data=ClientFieldData(
-            prompt=lambda cm: "Enter your Arbitrum TESTNET private key",
-            is_secure=True,
-            is_connect_key=True,
-            prompt_on_new=True,
-        ),
-    )
-    bison_testnet_arbitrum_address: str = Field(
-        default=...,
-        client_data=ClientFieldData(
-            prompt=lambda cm: "Enter your Arbitrum TESTNET wallet address",
+            prompt=lambda cm: "Enter your Bison Wallet TESTNET rpc host (Ex: localhost:5757)",
             is_secure=False,
             is_connect_key=True,
             prompt_on_new=True,
         ),
     )
-
-    # vertex_testnet_spot_leverage: bool = Field(
-    #     default=False,
-    #     client_data=ClientFieldData(
-    #         prompt=lambda cm: "Enable spot leverage? This auto-borrows assets against your margin to trade with larger size. Set to True to enable borrowing (default: False).",
-    #         is_secure=False,
-    #         is_connect_key=False,
-    #         prompt_on_new=True,
-    #     ),
-    # )
+    bison_testnet_rpc_user: str = Field(
+        default=...,
+        client_data=ClientFieldData(
+            prompt=lambda cm: "Enter your Bison Wallet TESTNET rpc user",
+            is_secure=False,
+            is_connect_key=True,
+            prompt_on_new=True,
+        ),
+    )
+    bison_testnet_rpc_pass: SecretStr = Field(
+        default=...,
+        client_data=ClientFieldData(
+            prompt=lambda cm: "Enter your Bison Wallet TESTNET rpc pass",
+            is_secure=True,
+            is_connect_key=True,
+            prompt_on_new=True,
+        ),
+    )
 
     class Config:
         title = "bison_testnet"
